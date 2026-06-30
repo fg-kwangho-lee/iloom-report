@@ -506,23 +506,41 @@
   </div>
 
   <!-- STAT STRIP -->
-  <div class="stat-strip">
-    <div class="stat-card blue">
-      <div class="stat-num">7</div>
-      <div class="stat-label">로드매장 오류 유형</div>
+  <div style="display:grid; grid-template-columns:1fr 1px 1fr; gap:0 16px; margin-bottom:12px;">
+
+    <!-- 왼쪽: 매장별 오류유형 -->
+    <div>
+      <div style="font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-3); margin-bottom:8px;">매장별 오류 유형</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+        <div class="stat-card blue">
+          <div class="stat-num">7</div>
+          <div class="stat-label">로드매장 오류 유형</div>
+        </div>
+        <div class="stat-card violet">
+          <div class="stat-num">4</div>
+          <div class="stat-label">입점몰 오류 유형</div>
+        </div>
+      </div>
     </div>
-    <div class="stat-card violet">
-      <div class="stat-num">4</div>
-      <div class="stat-label">입점몰 오류 유형</div>
+
+    <!-- 구분선 -->
+    <div style="background:var(--border-soft); margin-top:24px;"></div>
+
+    <!-- 오른쪽: 개선 방향 -->
+    <div>
+      <div style="font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-3); margin-bottom:8px;">개선 방향</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+        <div class="stat-card red">
+          <div class="stat-num">8</div>
+          <div class="stat-label">시스템 개선 필요 항목</div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-num">3</div>
+          <div class="stat-label">운영 강화로 개선 가능 항목</div>
+        </div>
+      </div>
     </div>
-    <div class="stat-card red">
-      <div class="stat-num">8</div>
-      <div class="stat-label">시스템 개선 필요 항목</div>
-    </div>
-    <div class="stat-card green">
-      <div class="stat-num">3</div>
-      <div class="stat-label">운영 강화로 개선 가능 항목</div>
-    </div>
+
   </div>
 
   <!-- STORE COUNT STRIP -->
