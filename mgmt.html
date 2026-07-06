@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>대리점 채권정산 문제 현황 보고 | 일룸 파트너채널팀</title>
+<style>
+/* ── TOKENS ─────────────────────────────── */
+:root {
+  --bg:          #EEF1F6;
+  --surface:     #FFFFFF;
+  --t1:          #0D1F35;
+  --t2:          #354A5E;
+  --t3:          #7A8EA0;
+  --border:      #D8DFE9;
+  --border-soft: #E8ECF2;
+  --shadow:      0 2px 12px rgba(13,31,53,.07), 0 1px 3px rgba(13,31,53,.05);
+
+  --red:         #B91C2E;
+  --red-bg:      #FDF2F3;
+  --red-mid:     #F5C0C6;
+  --amber:       #8C4A00;
+  --amber-bg:    #FEF8EF;
+  --amber-mid:   #F5C97A;
+  --green:       #0A5C3E;
+  --green-bg:    #EDF8F3;
+  --green-mid:   #8FD9B8;
+  --blue:        #1A48B0;
+  --blue-bg:     #EEF4FF;
+  --blue-mid:    #B8CFFB;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:          #07121C;
+    --surface:     #0D1E30;
+    --t1:          #DDE8F4;
+    --t2:          #8AAEC8;
+    --t3:          #4E6E88;
+    --border:      #172E45;
+    --border-soft: #102030;
+    --shadow:      0 2px 16px rgba(0,0,0,.45);
+    --red-bg:      #1E080C;
+    --red-mid:     #5C1B24;
+    --amber-bg:    #180D00;
+    --amber-mid:   #6B3A00;
+    --green-bg:    #051610;
+    --green-mid:   #1A5C3E;
+    --blue-bg:     #040E28;
+    --blue-mid:    #1A3470;
+  }
+}
+:root[data-theme="light"] {
+  --bg:#EEF1F6; --surface:#FFFFFF; --t1:#0D1F35; --t2:#354A5E; --t3:#7A8EA0;
+  --border:#D8DFE9; --border-soft:#E8ECF2; --shadow:0 2px 12px rgba(13,31,53,.07), 0 1px 3px rgba(13,31,53,.05);
+  --red-bg:#FDF2F3; --red-mid:#F5C0C6; --amber-bg:#FEF8EF; --amber-mid:#F5C97A;
+  --green-bg:#EDF8F3; --green-mid:#8FD9B8; --blue-bg:#EEF4FF; --blue-mid:#B8CFFB;
+}
+:root[data-theme="dark"] {
+  --bg:#07121C; --surface:#0D1E30; --t1:#DDE8F4; --t2:#8AAEC8; --t3:#4E6E88;
+  --border:#172E45; --border-soft:#102030; --shadow:0 2px 16px rgba(0,0,0,.45);
+  --red-bg:#1E080C; --red-mid:#5C1B24; --amber-bg:#180D00; --amber-mid:#6B3A00;
+  --green-bg:#051610; --green-mid:#1A5C3E; --blue-bg:#040E28; --blue-mid:#1A3470;
+}
+
+/* ── RESET ───────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, 'Apple SD Gothic Neo', BlinkMacSystemFont, 'Malgun Gothic', 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--t1);
+  font-size: 14px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 1060px; margin: 0 auto; padding: 44px 24px 80px; }
+
+/* ── HERO ────────────────────────────────── */
+.hero {
+  background: #0D1F35;
+  border-radius: 14px;
+  padding: 44px 52px;
+  margin-bottom: 28px;
+  position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: space-between; gap: 40px;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 600px 280px at 85% -40%, rgba(185,28,46,.22), transparent),
+    radial-gradient(ellipse 350px 350px at 110% 130%, rgba(26,72,176,.12), transparent);
+}
+.hero-left { flex: 1; min-width: 0; position: relative; }
+.hero-eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: #5A7EA6; margin-bottom: 14px;
+}
+.hero h1 {
+  font-size: 27px; font-weight: 800; color: #fff;
+  line-height: 1.25; letter-spacing: -.015em;
+  text-wrap: balance;
+}
+.hero-right { display: flex; gap: 14px; flex-shrink: 0; position: relative; }
+.kpi-block {
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 10px; padding: 18px 28px; min-width: 120px; text-align: center;
+}
+.kpi-n {
+  font-size: 44px; font-weight: 900; line-height: 1;
+  font-variant-numeric: tabular-nums; letter-spacing: -.02em;
+  margin-bottom: 5px;
+}
+.kpi-n.r { color: #FF8A8A; }
+.kpi-n.a { color: #F9CB7A; }
+.kpi-l { font-size: 12px; font-weight: 600; color: #6A9ABE; }
+
+/* ── SECTION HEADER ──────────────────────── */
+.sec { display: flex; align-items: stretch; margin: 36px 0 16px; }
+.sec-bar { width: 5px; border-radius: 3px 0 0 3px; flex-shrink: 0; }
+.sec-bar.red  { background: var(--red); }
+.sec-bar.amb  { background: #C97A00; }
+.sec-inner {
+  flex: 1; background: var(--surface); border: 1px solid var(--border); border-left: none;
+  border-radius: 0 10px 10px 0; padding: 12px 20px;
+  display: flex; align-items: center; gap: 14px; box-shadow: var(--shadow);
+}
+.sec-pill {
+  font-size: 10px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 4px; white-space: nowrap; flex-shrink: 0;
+}
+.sec-pill.red { background: var(--red); color: #fff; }
+.sec-pill.amb { background: var(--amber-mid); color: #6B3A00; }
+.sec-title { font-size: 15px; font-weight: 700; }
+.sec-sub { font-size: 11px; color: var(--t3); margin-left: auto; white-space: nowrap; }
+
+/* ── IT CARD 1 (FEATURED) ────────────────── */
+.it-feat {
+  background: var(--surface); border-radius: 12px;
+  border: 1px solid var(--border); box-shadow: var(--shadow);
+  overflow: hidden; margin-bottom: 12px;
+}
+.it-feat-grid { display: grid; grid-template-columns: 260px 1fr; }
+.it-feat-l {
+  background: var(--red-bg); border-right: 1px solid var(--red-mid);
+  padding: 24px 24px; display: flex; flex-direction: column; gap: 18px;
+}
+.it-feat-r { padding: 24px 28px; display: flex; flex-direction: column; gap: 20px; }
+
+
+/* ── SHARED CARD ATOMS ───────────────────── */
+.c-num {
+  width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0; margin-bottom: 10px;
+  background: var(--red); color: #fff;
+  font-size: 12px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+}
+.c-title { font-size: 15px; font-weight: 800; color: var(--red); line-height: 1.3; margin-bottom: 8px; }
+.s-tag {
+  display: inline-block; font-size: 10px; font-weight: 700;
+  padding: 3px 9px; border-radius: 4px; letter-spacing: .04em;
+}
+.s-tag.road { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue-mid); }
+.s-tag.mall { background: #F0EEFF; color: #5B21B6; border: 1px solid #D8CCFF; }
+.s-tag.all  { background: var(--border-soft); color: var(--t2); border: 1px solid var(--border); }
+.mu {
+  font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--t3); margin-bottom: 7px;
+}
+.bt { font-size: 12.5px; color: var(--t2); line-height: 1.7; }
+.bt strong { color: var(--t1); font-weight: 700; }
+
+/* ── FLOW DIAGRAM ────────────────────────── */
+.flow-wrap {
+  background: var(--red-bg); border: 1px solid var(--red-mid);
+  border-radius: 9px; padding: 14px 16px;
+}
+.flow-lbl { font-size: 9px; font-weight: 800; color: var(--red); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 12px; }
+.flow-row { display: flex; align-items: stretch; }
+.flow-node {
+  flex: 1; min-width: 0; border-radius: 7px; border: 1.5px solid;
+  padding: 10px 10px; text-align: center;
+  font-size: 11px; font-weight: 600; line-height: 1.45;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.flow-node small { display: block; font-size: 9.5px; font-weight: 500; opacity: .75; margin-bottom: 3px; }
+.flow-node.ok  { background: var(--blue-bg); border-color: var(--blue-mid); color: #1A3A8C; }
+.flow-node.bad { background: var(--red-bg);  border-color: var(--red-mid);  color: var(--red); }
+.flow-node.end { background: #0D1F35; border-color: #0D1F35; color: #fff; }
+.flow-arr { display: flex; align-items: center; padding: 0 6px; font-size: 15px; color: var(--red-mid); font-weight: 700; flex-shrink: 0; }
+
+/* ── CHIPS ───────────────────────────────── */
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-size: 11px; font-weight: 700; padding: 4px 11px; border-radius: 5px; }
+.chip.r { background: var(--red-bg);   color: var(--red);   border: 1px solid var(--red-mid); }
+.chip.a { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-mid); }
+
+/* ── SOLUTION BOX ────────────────────────── */
+.sol {
+  background: var(--green-bg); border: 1px solid var(--green-mid);
+  border-radius: 8px; padding: 12px 15px; margin-top: auto;
+}
+.sol-hd { font-size: 10px; font-weight: 800; color: var(--green); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 6px; }
+.sol-bd { font-size: 11.5px; color: var(--green); line-height: 1.7; }
+.sol-bd strong { font-weight: 700; }
+
+/* ── CASE ITEMS ──────────────────────────── */
+.cases { display: flex; flex-direction: column; gap: 7px; }
+.case-item {
+  font-size: 12px; color: var(--t2); line-height: 1.6;
+  background: var(--red-bg); border-left: 3px solid var(--red-mid);
+  border-radius: 0 6px 6px 0; padding: 8px 12px;
+}
+.case-item strong { color: var(--t1); font-weight: 700; }
+
+/* ── OPS GRID ────────────────────────────── */
+.ops-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.ops-card {
+  background: var(--surface); border-radius: 10px;
+  border: 1px solid var(--border); border-left: 4px solid var(--amber-mid);
+  box-shadow: var(--shadow); padding: 16px 18px;
+}
+.ops-hd { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 7px; }
+.ops-num {
+  width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0; margin-top: 1px;
+  background: var(--amber-mid); color: #6B3A00;
+  font-size: 11px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+}
+.ops-hd h4 { font-size: 13px; font-weight: 700; line-height: 1.3; }
+.ops-stag { margin: 0 0 8px 32px; }
+.ops-items { margin-left: 32px; display: flex; flex-direction: column; gap: 5px; }
+.ops-item {
+  font-size: 11.5px; color: var(--t2); line-height: 1.55;
+  padding: 5px 10px; border-left: 2px solid var(--amber-mid);
+}
+.ops-item strong { color: var(--t1); font-weight: 700; }
+.ops-sol { margin: 10px 0 0 32px; font-size: 11px; color: var(--green); font-weight: 600; line-height: 1.6; }
+.ops-sol::before { content: '→ '; }
+
+/* ── SUMMARY ─────────────────────────────── */
+.summary {
+  background: #0D1F35; border-radius: 14px;
+  padding: 30px 36px; margin-top: 36px;
+  position: relative; overflow: hidden;
+}
+.summary::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 420px 200px at 100% 0%, rgba(185,28,46,.13), transparent);
+}
+.summary h3 { font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 18px; position: relative; }
+.sum-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; position: relative; }
+.sum-card {
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+  border-radius: 9px; padding: 15px 18px;
+}
+.sum-badge {
+  font-size: 10px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 4px; display: inline-block; margin-bottom: 9px;
+}
+.sum-badge.hi { background: var(--red); color: #fff; }
+.sum-badge.md { background: var(--amber-mid); color: #6B3A00; }
+.sum-card p { font-size: 12px; color: #8AAEC8; line-height: 1.7; }
+.sum-card strong { color: #fff; }
+.sum-note {
+  margin-top: 16px; padding-top: 14px;
+  border-top: 1px solid rgba(255,255,255,.1);
+  font-size: 11px; color: #4A6E8A; line-height: 1.75; position: relative;
+}
+
+/* ── FOOTER ──────────────────────────────── */
+.foot { text-align: center; font-size: 11px; color: var(--t3); margin-top: 28px; }
+
+/* ── RESPONSIVE ──────────────────────────── */
+@media (max-width: 820px) {
+  .it-feat-grid { grid-template-columns: 1fr; }
+  .it-feat-l { border-right: none; border-bottom: 1px solid var(--red-mid); }
+  .it-pair, .ops-grid, .sum-grid { grid-template-columns: 1fr; }
+  .hero { flex-direction: column; padding: 28px 24px; }
+  .hero h1 { font-size: 22px; }
+  .hero-right { width: 100%; }
+  .kpi-block { flex: 1; }
+  .sec-sub { display: none; }
+}
+@media (max-width: 480px) {
+  .flow-node small { display: none; }
+  .flow-arr { padding: 0 3px; font-size: 12px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ── HERO ── -->
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow">파트너채널팀 · 2026년 7월</div>
+      <h1>대리점 채권정산<br>문제 현황 및 시스템 개선 요청</h1>
+    </div>
+    <div class="hero-right">
+      <div class="kpi-block">
+        <div class="kpi-n r">3</div>
+        <div class="kpi-l">주요 이슈</div>
+      </div>
+      <div class="kpi-block">
+        <div class="kpi-n a">6</div>
+        <div class="kpi-l">그외 이슈</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── IT SECTION ── -->
+  <div class="sec">
+    <div class="sec-bar red"></div>
+    <div class="sec-inner">
+      <span class="sec-pill red">IT 개선 요청</span>
+      <span class="sec-title">시스템 개선으로 해결 가능한 영역 — 3건</span>
+      <span class="sec-sub">구조적 문제 · 운영으로는 근본 해결 불가</span>
+    </div>
+  </div>
+
+  <!-- IT CARD 1: FEATURED -->
+  <div class="it-feat">
+    <div class="it-feat-grid">
+
+      <div class="it-feat-l">
+        <div>
+          <div class="c-num">1</div>
+          <div class="c-title">결제 병합 기능 악용<br>— 횡령 위험</div>
+          <span class="s-tag road">로드매장</span>
+        </div>
+        <div>
+          <div class="mu">기능 설명</div>
+          <div class="bt">
+            <strong>결제 병합</strong>은 한 고객의 여러 수주를 하나의 결제로 묶는 기능.
+            소파 분리수주·프로모션 분리 등 정상 사용 케이스 존재.
+          </div>
+        </div>
+        <div>
+          <div class="mu">발생 영향</div>
+          <div class="chips">
+            <span class="chip r">직원 횡령 가능</span>
+            <span class="chip a">채권 정산 혼선</span>
+            <span class="chip a">병합 건수 무제한</span>
+          </div>
+        </div>
+        <div class="sol">
+          <div class="sol-hd">IT 요청 사항</div>
+          <div class="sol-bd">
+            고객-결제내역 <strong>키 값 매칭</strong> 도입<br>
+            → 타 고객 수주 병합 불가 제한<br>
+            → 병합 가능 건수 상한 설정
+          </div>
+        </div>
+      </div>
+
+      <div class="it-feat-r">
+        <div>
+          <div class="mu">악용 경로 — 천안불당 실제 사례</div>
+          <div class="flow-wrap">
+            <div class="flow-lbl">⚠ 횡령 발생 플로우</div>
+            <div class="flow-row">
+              <div class="flow-node ok">
+                <small>정상 수주</small>
+                3개월 후 납기인<br><strong>A수주</strong><br>결제 완료
+              </div>
+              <div class="flow-arr">→</div>
+              <div class="flow-node bad">
+                <small>조작 발생</small>
+                직원이 일주일 뒤<br>납기인 <strong>B수주에</strong><br>병합
+              </div>
+              <div class="flow-arr">→</div>
+              <div class="flow-node bad">
+                <small>현금 유도</small>
+                B수주<br><strong>현금결제</strong><br>유도
+              </div>
+              <div class="flow-arr">→</div>
+              <div class="flow-node end">
+                <small style="opacity:.55;">결과</small>
+                현금<br>횡령
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="mu">문제의 근본 원인</div>
+          <div class="bt">
+            결제 병합 시 <strong>고객 동일성 검증 로직이 없어</strong> 이미 결제가 완료된 수주를 타인의 수주에 자유롭게 병합 가능.<br>
+            병합 건수 상한도 없어 금액 누락 추적이 어려워 채권 정산 불일치로 이어짐.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- IT CARD 2: FEATURED -->
+  <div class="it-feat">
+    <div class="it-feat-grid">
+
+      <div class="it-feat-l">
+        <div>
+          <div class="c-num">2</div>
+          <div class="c-title">입점몰 결제 수기입력<br>— 불일치·횡령 위험</div>
+          <span class="s-tag mall">입점몰 (백화점·아울렛)</span>
+        </div>
+        <div>
+          <div class="mu">발생 영향</div>
+          <div class="chips">
+            <span class="chip r">상품권 횡령 사례 발생</span>
+            <span class="chip a">POS-C+ 금액 불일치</span>
+            <span class="chip a">EXTRA 수주 악용</span>
+          </div>
+        </div>
+        <div class="sol">
+          <div class="sol-hd">IT 요청 사항</div>
+          <div class="sol-bd">
+            <strong>근본 해결:</strong> 결제영수증 스캔 시 C+ 자동 입력 개발<br>
+            <strong>현실적 대안:</strong> 월 단위 수기입력 vs POS 대조 화면 신설
+          </div>
+        </div>
+      </div>
+
+      <div class="it-feat-r">
+        <div>
+          <div class="mu">현황</div>
+          <div class="bt">
+            입점몰 POS와 C+가 <strong>미연동</strong>되어, 결제 후 직원이 영수증 보고 <strong>수기 입력</strong>하는 구조.
+            검증 없는 수기 입력이 아래 3가지 문제로 이어짐.
+          </div>
+        </div>
+        <div>
+          <div class="mu">발생한 문제 3가지</div>
+          <div class="cases">
+            <div class="case-item"><strong>① POS-C+ 불일치</strong> — 수기 오입력으로 매출금액 차이 발생</div>
+            <div class="case-item"><strong style="color:var(--red);">② 상품권 횡령 (신세계파주)</strong> — 고객 상품권 수령 후 일마감 미제출, 수기로만 입력</div>
+            <div class="case-item"><strong>③ EXTRA 수주 악용</strong> — 초과 상태 수주에 전시품·판촉물 병합 후 미결제</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- IT CARD 3: FEATURED -->
+  <div class="it-feat">
+    <div class="it-feat-grid">
+
+      <div class="it-feat-l">
+        <div>
+          <div class="c-num">3</div>
+          <div class="c-title">ERP-C+ 부가세 계산<br>기준 불일치</div>
+          <span class="s-tag all">전체 매장</span>
+        </div>
+        <div>
+          <div class="mu">발생 영향</div>
+          <div class="chips">
+            <span class="chip r">월평균 3회+ 재마감</span>
+            <span class="chip r">부가세 과오납 위험</span>
+            <span class="chip a">수기 대응 한계</span>
+          </div>
+        </div>
+        <div class="sol">
+          <div class="sol-hd">IT 요청 사항</div>
+          <div class="sol-bd">
+            ERP-C+ <strong>부가세 끝전처리 기준 통일</strong><br>
+            반품·AS환불 수주 시 <strong>원수주 기반 자동 계산</strong>으로 틀어짐 방지
+          </div>
+        </div>
+      </div>
+
+      <div class="it-feat-r">
+        <div>
+          <div class="mu">원인</div>
+          <div class="bt">
+            ERP와 C+의 <strong>부가세 끝전(원단위) 처리 기준이 달라</strong> 금액 불일치해도 시스템 상 완결로 처리됨.
+            아래 3가지 상황에서 반복적으로 오류 발생.
+          </div>
+        </div>
+        <div>
+          <div class="mu">발생 상황 3가지</div>
+          <div class="cases">
+            <div class="case-item"><strong>① 반품·AS환불 등록 시</strong> 부가세 틀어짐 — 월 10건 이상 빈번</div>
+            <div class="case-item"><strong>② 프로모션 기능 사용 후</strong> 수주변경 시 공급가액/부가세액 틀어짐</div>
+            <div class="case-item"><strong>③ 납기분할·프로모션 수주</strong>에서 끝전 차이 발생</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── OPS SECTION ── -->
+  <div class="sec">
+    <div class="sec-bar amb"></div>
+    <div class="sec-inner">
+      <span class="sec-pill amb">운영 개선 필요</span>
+      <span class="sec-title">운영 개선 필요 영역 — 6건</span>
+      <span class="sec-sub">프로세스 정비·운영 강화로 개선 가능</span>
+    </div>
+  </div>
+
+  <div class="ops-grid">
+
+    <div class="ops-card">
+      <div class="ops-hd">
+        <div class="ops-num">A</div>
+        <h4>커넥트플러스 미결·초과 상태 오류</h4>
+      </div>
+      <div class="ops-stag"><span class="s-tag road">로드매장</span></div>
+      <div class="ops-items">
+        <div class="ops-item"><strong>추가시공 (-)수주 누락</strong> — 당일 취소 시 마이너스 수주 수기 누락</div>
+        <div class="ops-item"><strong>강제 결제취소 미반영</strong> — 관리자 강제취소가 C+에 미연동</div>
+        <div class="ops-item"><strong>단가정정 오류</strong> — 정정 후에도 미결 상태 잔류</div>
+      </div>
+      <div class="ops-sol">추가시공 반품 자동화 / 강제취소 자동 매칭 개선</div>
+    </div>
+
+    <div class="ops-card">
+      <div class="ops-hd">
+        <div class="ops-num">B</div>
+        <h4>환불 처리 누락</h4>
+      </div>
+      <div class="ops-stag"><span class="s-tag road">로드매장</span></div>
+      <div class="ops-items">
+        <div class="ops-item"><strong>반품매출 처리 지연</strong> — 양지 입고까지 최대 7일, 그 사이 환불 누락</div>
+        <div class="ops-item"><strong>전시품·판촉물 환불 누락</strong> — 매장 결제분 단순 누락</div>
+        <div class="ops-item"><strong>기타</strong> — 박람회 계약금 환불 미진행 등</div>
+      </div>
+      <div class="ops-sol">당일 반품매출 당일 발행 / 환불 누락 알림 시스템</div>
+    </div>
+
+    <div class="ops-card">
+      <div class="ops-hd">
+        <div class="ops-num">C</div>
+        <h4>AS 환불 수주 등록 오류</h4>
+      </div>
+      <div class="ops-stag"><span class="s-tag road">로드매장</span></div>
+      <div class="ops-items">
+        <div class="ops-item"><strong>대리점 오등록</strong> — 컨택센터가 엉뚱한 대리점 코드에 AS환불 수주 발행</div>
+        <div class="ops-item"><strong>부가세 누락</strong> — 등록 시 부가세 없이 수주 생성</div>
+      </div>
+      <div class="ops-sol">AS환불 수주 등록 시 원수주 자동 연결 구현</div>
+    </div>
+
+    <div class="ops-card">
+      <div class="ops-hd">
+        <div class="ops-num">D</div>
+        <h4>입점몰 전시품 판매 정산</h4>
+      </div>
+      <div class="ops-stag"><span class="s-tag mall">입점몰</span></div>
+      <div class="ops-items">
+        <div class="ops-item"><strong>수기 정산 프로세스</strong> — 판매리스트 취합 → 영업 확인 → 엑스트라 발행 전 과정 수기</div>
+        <div class="ops-item"><strong>취소 미공유</strong> — 고객변심 취소 내역 본사 미전달 시 이중 정산</div>
+      </div>
+      <div class="ops-sol">월별 엑스트라 수주 점검 / 전시품 판매 시 일룸 POS 사용</div>
+    </div>
+
+    <div class="ops-card">
+      <div class="ops-hd">
+        <div class="ops-num">E</div>
+        <h4>신세계 백화점 법인 일괄 정산</h4>
+      </div>
+      <div class="ops-stag"><span class="s-tag mall">입점몰</span></div>
+      <div class="ops-items">
+        <div class="ops-item">신세계 본사가 일룸 법인 전체 브랜드를 <strong>단일 코드로 일괄 입금</strong></div>
+        <div class="ops-item"><strong>재경팀 대체전표 누락</strong> 시 거래처별 채권 불일치 — 신세계하남(팝업) 사례</div>
+      </div>
+      <div class="ops-sol">신세계 측 브랜드별 별도 정산 요청 / 즉시 대체전표 발행 프로세스</div>
+    </div>
+
+    <div class="ops-card">
+      <div class="ops-hd">
+        <div class="ops-num">F</div>
+        <h4>레거시·원장 오류</h4>
+      </div>
+      <div class="ops-stag"><span class="s-tag all">전체</span></div>
+      <div class="ops-items">
+        <div class="ops-item"><strong>e-iloom 이전 수주</strong> (2020년 12월 이전) — 결제 상세 내역 조회 불가</div>
+        <div class="ops-item"><strong>ERP 차·대변 역전</strong> — 반품수수료 등 대변 항목이 차변에 기입 (포항·대전도안 등)</div>
+      </div>
+      <div class="ops-sol">e-iloom 건 수기 정리 / ERP ACC 전표 생성 로직 수정</div>
+    </div>
+
+  </div>
+
+  <!-- ── SUMMARY ── -->
+  <div class="summary">
+    <h3>요청 사항 요약</h3>
+    <div class="sum-grid">
+      <div class="sum-card">
+        <span class="sum-badge hi">우선 IT 개선</span>
+        <p><strong>결제 병합 키 값 매칭</strong> — 타 고객 수주 병합 불가 제한</p>
+      </div>
+      <div class="sum-card">
+        <span class="sum-badge hi">우선 IT 개선</span>
+        <p><strong>부가세 끝전처리 기준 통일</strong> — ERP·C+ 일치<br>월 3회+ 재마감 및 과오납 위험 즉시 해소 가능</p>
+      </div>
+      <div class="sum-card">
+        <span class="sum-badge md">중기 IT 개발</span>
+        <p><strong>입점몰 영수증 스캔 자동 입력</strong> — 수기입력 구조 개선<br>현실적 대안: 월 단위 대조 가능한 ERP/C+ 화면 신설</p>
+      </div>
+      <div class="sum-card">
+        <span class="sum-badge md">운영 프로세스</span>
+        <p><strong>환불 누락 알림 · AS환불 자동 연결</strong><br>운영 강화 병행 시 채권 오류 대폭 감소 예상</p>
+      </div>
+    </div>
+    <p class="sum-note">
+      ※ 결제 병합 악용(천안불당), 상품권 횡령(신세계파주) 두 건은 실제 발생한 사례이며, 시스템 개선 없이는 동일 유형 재발 방지가 어렵습니다.<br>
+      ※ 부가세 오류는 현재 발견 즉시 수기 정정 대응 중이나, 월 10건 이상 발생으로 담당자 업무 부하가 과중한 상태입니다.
+    </p>
+  </div>
+
+  <div class="foot">일룸 파트너채널팀 영업관리 · 2026년 7월</div>
+
+</div>
+</body>
+</html>
